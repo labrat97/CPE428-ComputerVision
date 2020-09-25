@@ -1,0 +1,11 @@
+Homework 1 Answers - James McRoberts
+
+PART 1: [3]
+The numbers are the color values (from whatever color space is used) in the positions they sit in the display buffer.
+
+PART 2: [4]
+The cars disappear because of the fluctuation in where they drive. When they drive, their dark spot and light spots (which move accross the screen) get drowned out from the static nature of the road in the averaging function.
+
+PART 3: [5]
+Each technique worked reasonably well. One thing that can be done to improve the thresholding methods is to use a Gaussian blur prior to using Otsu's method for calculating thresholds. It creates more consistent blobs to help track, for example, like the bonus part of this homework.
+
