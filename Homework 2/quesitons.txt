@@ -22,3 +22,11 @@ It is possible. The angle from the other bounding box could be incorporated into
 a transformation matrix with a rotation property. It might need to be done for the
 XZ and YZ planes individually, but it can be simplified down to some sort of
 homographic projection.
+
+Bonus: [1, 2]
+By using a rolling average or some sort of filtering method (like Kalmann filtering),
+the shakiness of the circle detection can be alliviated. A really simple fix to
+a circle disappearing would be to keep the last known position, but there is also
+a better way to do it. In the parameters for the HoughCircles function, parameter1
+and parameter2 can be changed to help with thresholds of circle detection (optionally
+changing how the edges and the center are deduced).
