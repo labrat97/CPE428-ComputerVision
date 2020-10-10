@@ -47,6 +47,7 @@ def findCircles(sourceImage, drawCircles=True):
     
     return circles, src
 
+
 def main():
     """
     The main function for Part 1.

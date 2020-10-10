@@ -11,5 +11,14 @@ The measurement seems relatively accurate. It's stating that the ball is somewhe
 in the foot and a half range, which seems relatively accurate for someone holding an
 iPhone taking a video of a ball in their other hand.
 
-Part 3: [5]
+Part 3: [4]
+The box appears correct as the perspective of the lines seems to accurately distort
+as the balls move away from the centerpoint of the camera. Along with that, it's
+correctly bounded, used the functions from the in class videos, and seems to also
+properly distort the cube as it moves away from the camera (on the z axis).
 
+Part 3: [5]
+It is possible. The angle from the other bounding box could be incorporated into
+a transformation matrix with a rotation property. It might need to be done for the
+XZ and YZ planes individually, but it can be simplified down to some sort of
+homographic projection.

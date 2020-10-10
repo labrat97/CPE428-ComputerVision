@@ -1,5 +1,5 @@
 """
-Uses detected spheres in a video to make estimations 
+Uses detected spheres in a video to make estimations
 on positioning.
 """
 
@@ -11,6 +11,7 @@ import cv2
 import numpy as np
 
 import part1
+
 
 BALL_RADIUS_MM = 30
 
@@ -31,6 +32,7 @@ def convertToCameraCoords(x, y, f, cx, cy):
     ry = (y - cy) / f
 
     return rx, ry
+
 
 def readCalib(path=None):
     """Reads the calibration file for the camera used to take the videos.
@@ -55,7 +57,26 @@ def readCalib(path=None):
 
     return f, cx, cy
 
+
+def findCircleWorldCoords(circle, f, cx, cy):
+    # Requirement 1
+    x, y, r = circle
+    camX, camY = convertToCameraCoords(x, y, f, cx, cy)
+     
+    # Requirement 2
+    Z = f * (BALL_RADIUS_MM / r)
+
+    # Requirement 3
+    X = camX * Z
+    Y = camY * Z
+
+    return X, Y, Z
+
+
 def main():
+    """
+    The main function of the file.
+    """
     parser = argparse.ArgumentParser(description="Opens a video with OpenCV, " + \
         "then plays through the video estimating the world coordinates for the " + \
         "target balls.")
@@ -80,21 +101,15 @@ def main():
         if not ret: break
 
         circles, _ = part1.findCircles(src, drawCircles=False)
-        for circle in circles:
-            # Requirement 1
-            x, y, r = circle[0]
-            camX, camY = convertToCameraCoords(x, y, f, cx, cy)
-            
-            # Requirement 2
-            Z = f * (BALL_RADIUS_MM / r)
+        if circles is not None:
+            for circle in circles[0, :]:
+                # Requirements 1 - 3
+                x, y, _ = circle
+                _, _, Z = findCircleWorldCoords(circle, f, cx, cy)
 
-            # Requirement 3
-            X = ((camX * BALL_RADIUS_MM) / r) - cx
-            Y = ((camY * BALL_RADIUS_MM) / r) - cy
-
-            # Requirement 4
-            cv2.putText(src, str(int(Z)) + "mm", (np.int(x), np.int(y)), cv2.FONT_HERSHEY_COMPLEX_SMALL, 
-                1, (0, 255, 0))
+                # Requirement 4
+                cv2.putText(src, str(int(Z)) + "mm", (np.int(x), np.int(y)), cv2.FONT_HERSHEY_COMPLEX_SMALL, 
+                    1, (0, 255, 0))
         
         # Display
         cv2.imshow("part2", src)
