@@ -1,0 +1,15 @@
+Homework 2 Answers - James McRoberts
+
+Part 1: [5]
+The detection is pretty accurate, but it fails a little more in the redblue.mov
+example. This is due to the detected circles being relatively close to each other. 
+Other sources of detected error are mostly from motion distorting the circles
+or the reflections on the balls.
+
+Part 2: [5]
+The measurement seems relatively accurate. It's stating that the ball is somewhere
+in the foot and a half range, which seems relatively accurate for someone holding an
+iPhone taking a video of a ball in their other hand.
+
+Part 3: [5]
+
