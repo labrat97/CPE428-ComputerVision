@@ -5,11 +5,11 @@ import cv2
 import numpy as np
 import argparse
 
-KERNEL_SIZE = (31, 31)
+KERNEL_SIZE = 31
 KERNEL_SIGMA = 5
 DEFAULT_EXT = '.png'
 
-def normalizeImage(image, maxRange=255, minRange=0):
+def normalizeImage(image, maxRange=255., minRange=0.):
     """Scales an image to fit in the range of [0, 1].
 
     Args:
@@ -21,9 +21,9 @@ def normalizeImage(image, maxRange=255, minRange=0):
         cv2.Mat: The image normalized to the range of [0, 1].
     """
     spread = maxRange - minRange
-    return (image - minRange) / spread
+    return (np.float32(image) - minRange) / spread
 
-def denornalizeImage(image, maxRange=255, minRange=0):
+def denornalizeImage(image, maxRange=255., minRange=0.):
     """Scales an image back up to a usable range.
 
     Args:
@@ -65,6 +65,16 @@ def main():
         parser.print_usage()
         return -1
 
+    # Make the images the same size
+    if colorImage.shape[0] > featureImage.shape[0]:
+        colorImage = colorImage[:featureImage.shape[0], :, :]
+    else:
+        featureImage = featureImage[:colorImage.shape[0], :, :]
+    if colorImage.shape[1] > featureImage.shape[1]:
+        colorImage = colorImage[:, :featureImage.shape[1], :]
+    else:
+        featureImage = featureImage[:, :colorImage.shape[1], :]
+
     # Step 1
     featureNorm = normalizeImage(featureImage)
     colorNorm = normalizeImage(colorImage)
@@ -74,15 +84,17 @@ def main():
     lowpassKernel = kernel * kernel.transpose()
 
     # Step 3
-    highpassKernel = 1 - lowpassKernel
+    highpassKernel = np.zeros_like(kernel, dtype=np.float32)
+    highpassKernel[int(KERNEL_SIZE/2)] = 1
+    highpassKernel = (highpassKernel * highpassKernel.transpose()) - lowpassKernel
 
     # Step 4
-    lowImage = cv2.filter2D(colorNorm, -1, lowpassKernel)
-    highImage = cv2.filter2D(featureNorm, -1, highpassKernel)
+    lowImage = cv2.filter2D(colorNorm, -1, lowpassKernel) * 255
+    highImage = cv2.filter2D(featureNorm, -1, highpassKernel) * 255
 
     # Step 5
-    outputImage = denornalizeImage(lowImage + highImage)
-    outfileName = args.output[0]
+    outputImage = lowImage + highImage
+    outfileName = args.output
     if outfileName[-4:] != DEFAULT_EXT:
         outfileName += DEFAULT_EXT
     
