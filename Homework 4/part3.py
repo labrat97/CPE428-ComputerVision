@@ -1,5 +1,6 @@
 """
-Detects matches from a target image in a video, then draws them.
+Detects matches from a target image in a video, then draws them abd a bounding box
+around the target.
 """
 import cv2
 import numpy as np
@@ -7,7 +8,7 @@ import argparse
 import time
 from time import sleep
 
-WINDOW_NAME = "Part 2 - SIFT Matching"
+WINDOW_NAME = "Part 3 - SIFT Object Detection"
 RATIO_THRESHOLD = 0.7
 MINIMUM_GOOD_POINTS = 7
 
