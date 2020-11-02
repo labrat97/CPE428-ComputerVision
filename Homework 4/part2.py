@@ -1,3 +1,6 @@
+"""
+Detects matches from a target image in a video, then draws them.
+"""
 import cv2
 import argparse
 import time
