@@ -90,13 +90,13 @@ def main():
             if sleepTime > 0: sleep(sleepTime)
     capture.release()
 
-    print("Inlier count: \t\t" + str(inlierCount))
-    print("Total match count: \t" + str(matchCount))
-    print("Inlier percentage: \t%" + str(inlierCount*100/matchCount))
-
     cv2.imshow(WINDOW_NAME, writtenImage)
     cv2.waitKey(0)
     cv2.destroyWindow(WINDOW_NAME)
+
+    print("Inlier count: \t\t" + str(inlierCount))
+    print("Total match count: \t" + str(matchCount))
+    print("Inlier percentage: \t%" + str(inlierCount*100/matchCount))
 
     exit()
 
