@@ -5,3 +5,9 @@ The SIFT algorithm produces really REALLY "repeatable" features. They almost alw
 appear in the same spot between frames, they almost always have the same size, and
 the orientations seem very stable. The features seem roughly the same as the original image, and the features detected
 appear on circles of intensity.
+
+Part 2: [5]
+The mathces appear to be correct. The bad matches appear to occur during high levels
+of tilt due to the error that can be caused from typical masking methods. Increasing
+the ratio for the test increases the error of the matches that get drawn. Running at
+a ratio of about 0.3 seems to be the most human observable.
