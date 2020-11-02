@@ -11,3 +11,7 @@ The mathces appear to be correct. The bad matches appear to occur during high le
 of tilt due to the error that can be caused from typical masking methods. Increasing
 the ratio for the test increases the error of the matches that get drawn. Running at
 a ratio of about 0.3 seems to be the most human observable.
+
+Part 3: [5]
+The inliers occur inside of the iamge's bounding box in the scene. The amount of
+inliers vs. the total matches is roughly %98.1.
