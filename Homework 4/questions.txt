@@ -1,0 +1,7 @@
+Homework 4 Questions - James McRoberts
+
+Part 1: [5]
+The SIFT algorithm produces really REALLY "repeatable" features. They almost always
+appear in the same spot between frames, they almost always have the same size, and
+the orientations seem very stable. The features seem roughly the same as the original image, and the features detected
+appear on circles of intensity.
